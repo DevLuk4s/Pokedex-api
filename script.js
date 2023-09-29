@@ -1,20 +1,27 @@
-const pokemonName = document.querySelector('.pokemon__name')
-const pokemonImg = document.querySelector('.pokemon__image')
-const pokemonId = document.querySelector('.pokemon__number')
+const PokemonName = document.querySelector(".pokemon__name")
+const PokemonNumber = document.querySelector(".pokemon__number")
+const PokemonImage = document.querySelector(".pokemon__image")
 
-const fechPokemon = async (pokemon) => {
+const form = document.querySelector(".form")
+const input = document.querySelector(".input__search")
+const buttonNext = document.querySelector(".btn-next")
+const buttonPrev = document.querySelector(".btn-prev")
+
+let pokemon = 1
+
+const fetchPokemon = async (pokemon) => {
     const respose = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     const data = await respose.json()
     return data
 }
 
 const renderPokemon = async (pokemon) => {
+    const data = await fetchPokemon(pokemon)
+    console.log(data)
 
-    const data = await fechPokemon(pokemon)
-    
-    pokemonName.innerHTML = data.name
-    pokemonId.innerHTML = data.id
-    pokemonImg.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+    PokemonName.innerHTML = data.name
+    PokemonNumber.innerHTML = data.id
+    PokemonNumber.src = data.sprite.front_default
 }
 
-renderPokemon(25)
+renderPokemon(pokemon)
